@@ -1,0 +1,72 @@
+$grid-border-color: #000;
+$grid-background-color: #f1f1f1;
+
+$grid-width: 300px;
+$grid-height: 300px;
+$grid-column-count: 3;
+$grid-row-count: 3;
+
+$player-one-color: #a9374c;
+$player-two-color: #1b6ca7;
+
+.grid-wrapper {
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  min-height: $grid-height;
+  min-width: $grid-width;
+  background-color: $grid-background-color;
+  border: 2px solid $grid-border-color;
+
+  .grid-row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid $grid-border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .grid-col {
+      height: $grid-height / $grid-row-count;
+      width: $grid-width / $grid-column-count;
+      border-collapse: collapse;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      border-left: 2px solid $grid-border-color;
+
+      &.played {
+        cursor: not-allowed;
+      }
+
+      .player-mark {
+        font-family: monospace;
+        font-size: 4em;
+        line-height: 1.2em;
+        text-align: center;
+        font-weight: bolder;
+
+        &.player-one {
+          color: $player-one-color;
+        }
+
+        &.player-two {
+          color: $player-two-color;
+        }
+      }
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
