@@ -1,28 +1,40 @@
 import React from "react";
 import "./PlayGrid.scss";
+import { GRID_SIZE, PLAYERS, findSpot } from "../provider/constants";
 
-const GRID_SIZE = 3;
-const PLAYERS = ['X', 'O'];
+const PlayGrid = ({ columnStat, onStatChange }: { columnStat: any[], onStatChange: Function }) => {
 
-const PlayGrid = () => {
+    const GridCol = ({ rowIndex, colIndex }: { rowIndex: number, colIndex: number }) => {
+        const currentPlayer = columnStat[findSpot(rowIndex, colIndex)];
 
-    const GridCol = () => {
-        const currentPlayer = PLAYERS[Math.round(Math.random())];
-        const played = true;
+        let played = false;
+        if (currentPlayer !== null) {
+            played = true;
+        }
 
-        return (<div className={`grid-col${played ? ' played' : ''}`}>
-            <span className={`player-mark${currentPlayer === PLAYERS[0] ? ' player-one' : ' player-two'}`}>
-                {currentPlayer}
-            </span>
+        const onColClick = () => {
+            if (played) return;
+
+            onStatChange(rowIndex, colIndex);
+        };
+
+        return (<div className={`grid-col${played ? ' played' : ''}`} onClick={() => onColClick()}>
+            {
+                currentPlayer ? (
+                    <span className={`player-mark${currentPlayer === PLAYERS[0] ? ' player-one' : ' player-two'}`}>
+                        {currentPlayer}
+                    </span>
+                ) : null
+            }
         </div>)
     };
 
-    const GridRow = () => {
+    const GridRow = ({ rowIndex }: { rowIndex: number }) => {
         return (
             <div className="grid-row">
                 {
                     Array.from({length: GRID_SIZE}).map((row, index) => (
-                        <GridCol key={`col_${index}`} />
+                        <GridCol rowIndex={rowIndex} colIndex={index} key={`col_${index}`} />
                     ))
                 }
             </div>
@@ -34,7 +46,7 @@ const PlayGrid = () => {
             <div className="grid-wrapper">
                 {
                     Array.from({length: GRID_SIZE}).map((row, index) => (
-                        <GridRow key={`row_${index}`} />
+                        <GridRow rowIndex={index} key={`row_${index}`} />
                     ))
                 }
             </div>

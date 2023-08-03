@@ -3,9 +3,11 @@ import "./Footer.scss";
 
 const Footer = () => {
     return (
-        <div className="footer">
-            <div className="d-flex flex-row justify-content-center mb-3">
-                <h4>Experimented by Silambarasan R</h4>
+        <div className="footer-wrapper">
+            <div className="footer">
+                <div className="d-flex flex-row justify-content-center">
+                    <h4 className="text-center">Developed & Experimented by Silambarasan R 🤠</h4>
+                </div>
             </div>
         </div>
     )
